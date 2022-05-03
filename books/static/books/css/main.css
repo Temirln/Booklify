@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Lora", serif, sans-serif;
+    box-sizing: border-box;
+}
+  .wrapper {
+    min-height: calc(100vh - 103px);
+    width: 1440px;
+
+  } 
+  
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media (min-width: 768px) {
+    .container {
+      width: 750px;
+    }
+  }
+  @media (min-width: 992px) {
+    .container {
+      width: 970px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+      width: 1170px;
+    }
+  }
+a{
+    text-decoration: none;
+}
+
+
+form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    width: 312px;
+    margin-left: 19px;
+    
+  }
+  form .form-group .input-text {
+    border: 1px solid #08021517;
+    padding: 13px 23px;
+    font-size: 16px;
+  }
+  form .form-group input:focus {
+    outline: none;
+  }
+  
+  form .form-group input::placeholder {
+    font-size: 16px;
+    color: #AFAFAF;
+  }
+  
+  form .form-login {
+    background: #EDEDED;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    padding: 12px 70px;
+    border: 1px solid #000;
+    width: 210px;
+    margin-top: 55px;
+    margin-left: 70px;
+    cursor: pointer;
+    transition: .1s;
+  }
+  
+  form .form-login:hover{
+    background: #B7B5B0;
+  }
+
+.container a[href="register.html"]{
+    font-weight: 900;
+    animation: link-grad 4s ease-in-out infinite;
+    transition: .2s;
+  }
+  
+  .container a[href="register.html"]:hover{
+    color: #000!important;
+    text-shadow: 0px 0px 10px #fff;
+  }
+
+  .container a[href="login.html"]{
+    font-weight: 900;
+    animation: link-grad 4s ease-in-out infinite;
+    transition: .2s;
+  }
+  
+  .container a[href="login.html"]:hover{
+    color: #000!important;
+    text-shadow: 0px 0px 10px #fff;
+  }
+
+  .black-bg {
+    background: #080215;
+    height: 103px;
+  }
+  footer {
+   margin-top: 40px;
+   
+    display: flex;
+    justify-content: space-between;
+    -ms-flex-align: end;
+  }
+  
+  footer h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+  }
+  
+  footer h3.logo-text {
+    text-transform: uppercase;
+  }
+  
