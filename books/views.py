@@ -7,6 +7,8 @@ from django.shortcuts import render
 
 from .models import *
 
+
+############### INDEX ##################
 def index(request):
     books = Books.objects.all() 
     context = {
@@ -15,24 +17,107 @@ def index(request):
     }
     return render(request, 'books/index.html', context = context)
 
-def book(request,bookid):
 
-    
+
+############### BOOK ##################
+def book(request):
     context = {
-        'title': ''
+        'title': 'Book'
     }
+    
     return render(request, 'books/book.html', context = context)
-    # return HttpResponse(f"Book id :{bookid}",context=context)
 
+
+
+############### PROFILE ##################
+def profile(request):
+    context = {
+        'title': 'Profile'
+    }
+    
+    return render(request, 'books/profile.html', context = context)
+
+
+
+############### SEARCH RESULT ##################
+def searchResult(request):
+    context = {
+        'title': 'Search Result'
+    }
+    
+    return render(request, 'books/searchResult.html', context = context)
+
+
+
+############### BAG ##################
+def bag(request):
+    context = {
+        'title': 'Bag'
+    }
+    
+    return render(request, 'books/bag.html', context = context)
+
+
+
+############### SEARCH ##################
+def search(request):
+    context = {
+        'title': 'Search'
+    }
+    
+    return render(request, 'books/searchResult.html', context = context)
+
+
+
+
+############### PAGE NOT FOUND ##################
 def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Page Not Found</h1>')
 
+
+############### SEARCH ##################
+def search(request):
+    context = {
+        'title': 'Search'
+    }
+    return render(request, 'books/searchResult.html',context=context)
+
+
+############### CATALOG ##################
+def catalog(request):
+    context = {
+        'title': 'Catalog'
+    }
+    return render(request, 'books/catalog.html',context=context)
+
+
+############### LIST OF BOOKS ##################
+def listOfBooks(request):
+    context = {
+        'title': 'List Of Books'
+    }
+    return render(request, 'books/listOfBooks.html',context=context)
+
+
+
+############### MAIN ##################
+def main(request):
+    context = {
+        'title': 'main'
+    }
+    return render(request, 'books/main.html',context=context)
+
+
+
+############### LOGIN ##################
 def login(request):
     context = {
         'title': 'Login'
     }
     return render(request, 'books/login.html',context=context)
 
+
+############### REGISTER ##################
 def register(request):
     context = {
         'title': 'Registration'

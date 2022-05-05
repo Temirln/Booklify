@@ -1,10 +1,40 @@
 {% extends 'books/base.html' %}
 
+{% load static %}
+
 {% block content %}
+<style>
+    html{
+        height: 100%;
+    }
+    body {
+        margin: 0;
+        min-height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+    }
+    .logo img{
+        width: 120px;
+        height: 60px;
+        position: absolute;
+        left: 710px;
+        top: 46px;
+    }
+    .form-background{
+        position: absolute;
+        width: 350px;
+        height: max-content;
+        padding-bottom: 1%;
+        left: 595px;
+        top: 123px;
+        background: #ededed;
+    }
+</style>
+<body>
   <div class="wrapper">
         <div class="container">
             <form action="" method="post">
-               <div class="logo"><img src="logo.png" alt="logo"></div>
+               <div class="logo"><img src="{% static 'books/images/logo.png' %}" alt="logo"></div>
                 <div class="form-background">
                     <div class="form-group">
                         <input type="email" name="email" class="input-text" placeholder="Type your e-mail">
@@ -26,3 +56,4 @@
     </div>
 
 {% endblock %}
+

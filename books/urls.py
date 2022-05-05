@@ -7,5 +7,12 @@ urlpatterns =[
     path('',index, name='home'),
     path('login/',login,name='login'),
     path('register/',register,name ='register'),
-    path('book/<int:bookid>/',book ,name = 'book'),
+    path('book/',book ,name = 'book'),
+    path('bag/',bag ,name = 'bag'),
+    path('search/',search ,name = 'search'),
+    path('catalog/',catalog,name = 'catalog'),
+    path('listOfBooks/',listOfBooks,name = 'listOfBooks'),
+    path('main/',main,name = 'main'),
+    path('profile/',profile ,name = 'profile'),
+    path('searchResult/',searchResult ,name = 'searchResult'),
 ]
