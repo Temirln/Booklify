@@ -5,8 +5,8 @@
 <style>
      h2{
         margin-top: 10px;
+     }
      
-  }
 
 </style>
 <body>
@@ -49,11 +49,20 @@
             </div>
             <div class="productwrap">
                 <div class="product-item-line">
-                
+
                 <div class="product-item-flex">
                     <img src="{% static 'books/images/product.png' %}">
                     <h2>Book name</h2>
+                    <form action="/" method="post">
+                        <input type="text" name="id"  value="" hidden>
+                        <button>Mark a book</button>
+                    </form>
                 </div>
+                
+                <!-- <div class="product-item-flex">
+                    <img src="{% static 'books/images/product.png' %}">
+                    <h2>Book name</h2>
+                </div> -->
                 <p style= "background-color:#ededed;padding: 50px">Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of
                     the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting
                     industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
