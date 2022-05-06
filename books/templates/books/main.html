@@ -2,96 +2,58 @@
 {% load static %}
 {% block content %}
 
-<body>
-
-    <nav class="nav" id="nav">
-        <div class="close" id="close">✕</div>
-        <p></p>
-        <a href="main.html">Home</a>
-        <a href="userAccount.html">My account</a>
-        <a href="bookmarks.html">Bookmarks</a>
-        <a href="">Help</a>
-        <a href="">Log out</a>
-            </nav>
-    
-    <div class="wrapper">
-        <div class="container menu-head">
-            <header>
-                <div class="menu" id="open">
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
-                </div>
-                <div class="svg-icons">
-                    <form class="search" action="{% url 'search' %}" method="post">
-                        <input type="text" name="Searchbox" class="search-box" placeholder="  Search..." autocomplete="off">
-                        <input type="submit" name="submit" hidden>
-                    </form>
-                    <div class="search-container">
-                        <a>Search</a>
-                    </div>
-                    <div class="bag-container" style="text-align: center;">
-                        <a href="{% url 'bag' %}">Bag</a>
-                    </div>
-                    <div class="login-container">
-                        <a href="{% url 'login' %}">Login</a>
-                    </div>
-                    <div class="register-container">
-                        <a href="{% url 'register' %}">Register</a>
-                    </div>
-                </div>
-            </header>
-        </div>
-
-        <div class="gray-bg">
-            <div class="container">
-                <div class="hero hero-mainpage">
-                    <div class="hero-img-container">
-                        <img src="{% static 'books/images/main.png' %}" alt="">
-                    </div>
+<div class="wrapper">
+    <div class="gray-bg">
+        <div class="container">
+            <div class="hero hero-mainpage">
+                <div class="hero-img-container">
+                    <img src="{% static 'books/images/main.png' %}" alt="">
                 </div>
             </div>
         </div>
-        
-        <div class="container">
-            <div class="item-list-container">
-                <div class="item-list-grid">
-                    
-                        <form class="item" action="catalog.html" method="post">
-                        <input type="text" name="id"  value="1" hidden>
-                        <button class="overlay-container">
-                            <div class="img-overlay">
-                            </div>
-                            <div class="item-img">
-                                <img src="{% static 'books/images/product.png' %}" alt="">
-                            </div>
-                        </button>
-                        <p class="name">AUTHORS</p>
-                    </form>
-                        <form class="item" action="catalog.html" method="post">
-                        <input type="text" name="id"  value="2" hidden>
-                        <button class="overlay-container">
-                            <div class="img-overlay">
-                            </div>
-                            <div class="item-img">
-                                <img src="{% static 'books/images/product.png' %}" alt="">
-                            </div>
-                        </button>
-                        <p class="name">GENRES</p>
-                    </form>
-                        <form class="item" action="catalog.html" method="post">
-                        <input type="text" name="id"  value="3" hidden>
-                        <button class="overlay-container">
-                            <div class="img-overlay">
-                            </div>
-                            <div class="item-img">
-                                <img src="{% static 'books/images/product.png' %}" alt="">
-                            </div>
-                        </button>
-                        <p class="name">BESTSELLERS</p>
-                    </form>
-                    </div>
-                    </div>
-                    </div>
     </div>
+    <div class="container">
+        <div class="item-list-container">
+            <div class="item-list-grid">
+                <form class="item" action="{% url 'catalog' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="1" hidden>
+                    <button class="overlay-container">
+                        <div class="img-overlay">
+                        </div>
+                        <div class="item-img">
+                            <img src="{% static 'books/images/product.png' %}" alt="">
+                        </div>
+                    </button>
+                    <p class="name">AUTHORS</p>
+                </form>
+                <form class="item" action="{% url 'catalog' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="2" hidden>
+                    <button class="overlay-container">
+                        <div class="img-overlay">
+                        </div>
+                        <div class="item-img">
+                            <img src="{% static 'books/images/product.png' %}" alt="">
+                        </div>
+                    </button>
+                    <p class="name">GENRES</p>
+                </form>
+                <form class="item" action="{% url 'catalog' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="id" value="3" hidden>
+                    <button class="overlay-container">
+                        <div class="img-overlay">
+                        </div>
+                        <div class="item-img">
+                            <img src="{% static 'books/images/product.png' %}" alt="">
+                        </div>
+                    </button>
+                    <p class="name">BESTSELLERS</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

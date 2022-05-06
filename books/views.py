@@ -20,7 +20,7 @@ def index(request):
 
 
 ############### BOOK ##################
-def book(request):
+def book(request,post_id):
     context = {
         'title': 'Book'
     }
@@ -49,6 +49,17 @@ def searchResult(request):
 
 
 
+
+############### BOOKMARKS ##################
+def bookmarks(request):
+    context = {
+        'title': 'Bookmarks'
+    }
+    
+    return render(request, 'books/bookmarks.html', context = context)
+
+
+
 ############### BAG ##################
 def bag(request):
     context = {
@@ -65,7 +76,7 @@ def search(request):
         'title': 'Search'
     }
     
-    return render(request, 'books/searchResult.html', context = context)
+    return render(request, 'books/search.html', context = context)
 
 
 
@@ -75,12 +86,6 @@ def pageNotFound(request,exception):
     return HttpResponseNotFound('<h1>Page Not Found</h1>')
 
 
-############### SEARCH ##################
-def search(request):
-    context = {
-        'title': 'Search'
-    }
-    return render(request, 'books/searchResult.html',context=context)
 
 
 ############### CATALOG ##################

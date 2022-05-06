@@ -4,107 +4,39 @@
 
 {% block content %}
 
-<body>
-    <nav class="nav" id="nav">
-        <div class="close" id="close">✕</div>
-        <p></p>
-        <a href="main.html">Home</a>
-        <a href="userAccount.html">My account</a>
-        <a href="bookmarks.html">Bookmarks</a>
-        <a href="">Help</a>
-        <a href="">Log out</a>
-    </nav>
-    <div class="wrapper">
-        <div class="container menu-head">
-            <header>
-                <div class="menu" id="open">
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
-                    <div class="menu-line"></div>
+<div class="wrapper">
+    <div class="bag-list">
+        <div class="bag-item-wrap">
+            <div class="bag-items">
+                <img src="{% static 'books/images/product.png' %}">
+                <div class="bag-item-content">
+                    <h1>Name of books</h1>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
+                        simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
+                        simply dummy text of
+                    </p>
                 </div>
-                <div class="svg-icons">
-                    <form class="search" action="{% url 'search' %}" method="post">
-                        <input type="text" name="Searchbox" class="search-box" placeholder="  Search..."
-                            autocomplete="off">
-                        <input type="submit" name="submit" hidden>
-                    </form>
-                    <div class="search-container">
-                        <a>Search</a>
-                    </div>
-                    <div class="bag-container" style="text-align: center;">
-                        <a href="{% url 'bag' %}">Bag</a>
-                    </div>
-                    <div class="login-container">
-                        <a href="{% url 'login' %}">Login</a>
-                    </div>
-                    <div class="register-container">
-                        <a href="{% url 'register' %}">Register</a>
-                    </div>
-                </div>
-            </header>
-        </div>
-
-        <div class="bag-list">
-            <div class="bag-item-wrap">
-                <div class="bag-items">
-                    <img src="{% static 'books/images/product.png' %}">
-                    <div class="bag-item-content">
-                        <h1>Name of book</h1>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of
-                        </p>
-
-                    </div>
-                </div>
-                <form action="\" method="post">
+            </div>
+            <div class="bag-forms">
+                <form action="{% url 'book' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id">
+                    <button>Read more</button>
+                </form>
+                <form action="" method="post">
+                    {% csrf_token %}
                     <input type="text" name="id" hidden>
                     <button style="width: 100px;">Buy</button>
+                </form>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="id" hidden>
                     <button>Remove from bag</button>
-                </form>
-            </div>
-
-            <div class="bag-item-wrap">
-                <div class="bag-items">
-                    <img src="{% static 'books/images/product.png' %}">
-                    <div class="bag-item-content">
-                        <h1>Name of book</h1>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of
-                        </p>
-
-                    </div>
-                </div>
-                <form action="\" method="post">
-                    <input type="text" name="id" hidden>
-                    <button style="width: 100px;">Buy</button>
-                    <button>Delete from bag</button>
-                </form>
-            </div>
-
-
-            <div class="bag-item-wrap">
-                <div class="bag-items">
-                    <img src="{% static 'books/images/product.png' %}">
-                    <div class="bag-item-content">
-                        <h1>Name of book</h1>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of the printing and typesetting industry.
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                            simply dummy text of
-                        </p>
-
-                    </div>
-                </div>
-                <form action="\" method="post">
-                    <input type="text" name="id" hidden>
-                    <button style="width: 100px;">Buy</button>
-                    <button>Delete from bag</button>
                 </form>
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+
+{% endblock %}

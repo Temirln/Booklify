@@ -3,16 +3,17 @@
 {% block content %}
 
 <div class="wrapper">
+    <h2 class="searchResults">Search results</h2>
     <div class="bag-list">
         <div class="bag-item-wrap">
             <div class="bag-items">
-                <img src="{% static 'books/images/product.png' %}">
+                <img src="{% static 'books/images/product.png'%}">
                 <div class="bag-item-content">
                     <h1>Name of book</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                        dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                        dummy text of
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
+                        simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
+                        simply dummy text of
                     </p>
                     <form action="{% url 'book' %}" method="post">
                         {% csrf_token %}
@@ -21,10 +22,8 @@
                     </form>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
-
-
 
 {% endblock %}

@@ -2,69 +2,24 @@
 {% load static %}
 {% block content %}
 
-<style>
-     h2{
-        margin-top: 10px; 
-    }
-</style>
-<body>
+<div class="wrapper">
+    <div class="product-items">
+        <div class="useraccount">
+            <img src="{% static 'books/images/product.png' %}">
+            <h2 style="text-align: center;margin-top: 10px;">User name</h2>
+            <p style="text-align: center;">Email:abcdefg@hijk</p>
+        </div>
+        <div class="user-item">
+            <form action="bookmarks.html" method="post">
+                <input type="text" name="id" value="" hidden>
+                <button>Bookmarks</button>
+            </form>
+            <form action="/" method="post">
+                <input type="text" name="id" value="" hidden>
+                <button>Change password</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-
-    <nav class="nav" id="nav">
-
-        <div class="close" id="close">✕</div>
-        <p></p>
-        <a href="main.html">Home</a>
-        <a href="userAccount.html">My account</a>
-        <a href="bookmarks.html">Bookmarks</a>
-        <a href="">Help</a>
-        <a href="">Log out</a>
-         </nav>
-         <div class="wrapper">
-            <div class="container menu-head">
-                <header>
-                    <div class="menu" id="open">
-                        <div class="menu-line"></div>
-                        <div class="menu-line"></div>
-                        <div class="menu-line"></div>
-                    </div>
-                    <div class="svg-icons">
-                        <form class="search" action="" method="post">
-                            <input type="text" name="Searchbox" class="search-box" placeholder="  Search..." autocomplete="off">
-                            <input type="submit" name="submit" hidden>
-                        </form>
-                        <div class="search-container">
-                            <a>Search</a>
-                        </div>
-                        <div class="bag-container" style="text-align: center;">
-                            <a href="bag.html">Bag</a>
-                        </div>
-                        <div class="login-container">
-                            <a href="login.html">Login</a>
-                        </div>
-                        <div class="register-container">
-                            <a href="register.html">Register</a>
-                        </div>
-                    </div>
-                </header>
-            </div>
-                <div class="product-items">
-            <div class="useraccount" >
-                <img src="{% static 'books/images/product.png' %}">
-                <h2 style="text-align: center;">User name</h2>
-                <p style="text-align: center;">Email:abcdefg@hijk</p>
-            </div>
-                   <div class="user-item">
-                    <form action="bookmarks.html" method="post">
-                        <input type="text" name="id"  value="" hidden>
-                      <button>Bookmarks</button>
-                      </form>
-                      <form action="/" method="post">
-                        <input type="text" name="id"  value="" hidden>
-                      <button>Change password</button>
-                      </form>
-                   </div>
-                   
-            </div>
-            </div>
 {% endblock %}
