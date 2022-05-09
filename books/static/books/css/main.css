@@ -96,6 +96,10 @@ ol,
     animation: opac ease-in-out .4s;
 }
 
+ul{
+    list-style: none;
+}
+
 a {
     text-decoration: none;
     color: #000;
@@ -575,6 +579,23 @@ header .bag-container,
 .bag-list button:hover {
     background: #E1DFDF;
     color: black;
+}
+
+.bag-list a{
+    color: white;
+    display: block;
+    position: relative;    
+    z-index: 1;     
+    padding: 12px;     
+    margin: -12px; 
+}
+.bag-list  a:hover{
+    color: black;
+    display: block;    
+    position: relative;
+    z-index: 1;     
+    padding: 12px;     
+    margin: -12px; 
 }
 
 .product-items {

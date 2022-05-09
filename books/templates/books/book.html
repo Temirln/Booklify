@@ -6,8 +6,8 @@
     <div class="productwrap">
         <div class="product-item-line">
             <div class="product-item-flex">
-                <img src="{% static 'books/images/product.png' %}">
-                <h2 style="margin-top:10px ;">Book name</h2>
+                <img src="{{book.photo.url}}">
+                <h2 style="margin-top:10px ;">{{book.title}}</h2>
                 <form action="" method="post">
                     {% csrf_token %}
                     <input type="text" name="id" value="" hidden>
@@ -15,14 +15,8 @@
                 </form>
             </div>
 
-            <p style="background-color:#ededed;padding: 50px">Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry.Lorem Ipsum is simply dummy text of
-                the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem
-                Ipsum is simply dummy text of
-                the printing and typesetting industry.
+            <p style="background-color:#ededed;padding: 50px">
+                {{book.content}}
             </p>
         </div>
         <div class="product-item-column">

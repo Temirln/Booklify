@@ -1,0 +1,25 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+    
+    <form action="{% url 'addbook' %}" method="post" style="padding:50px ;" enctype="multipart/form-data">
+        <h1>Add Book</h1>
+        {% csrf_token %}
+
+        <div> {{form.non_field_errors }}</div>
+
+        {%for f in form %}
+            <p style="padding-top: 5px; display: grid;">
+                <label for="{{f.id_for_label}}" style="padding-right:10px ;font-size:xx-large;" >
+                    {{f.label}}
+                </label>
+                {{f}}
+            </p>
+            <div style="color: red;padding: 10px;">
+                {{ f.errors }}
+            </div>
+        {% endfor %}
+        <button style="padding:20px ; margin :20px" type="submit">Submit</button>
+    </form>
+
+{% endblock %}

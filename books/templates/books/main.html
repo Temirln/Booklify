@@ -15,7 +15,7 @@
     <div class="container">
         <div class="item-list-container">
             <div class="item-list-grid">
-                <form class="item" action="{% url 'catalog' %}" method="post">
+                <form class="item" action="{% url 'authors' %}" method="post">
                     {% csrf_token %}
                     <input type="text" name="id" value="1" hidden>
                     <button class="overlay-container">
@@ -27,7 +27,7 @@
                     </button>
                     <p class="name">AUTHORS</p>
                 </form>
-                <form class="item" action="{% url 'catalog' %}" method="post">
+                <form class="item" action="{% url 'genres' %}" method="post">
                     {% csrf_token %}
                     <input type="text" name="id" value="2" hidden>
                     <button class="overlay-container">
@@ -39,7 +39,7 @@
                     </button>
                     <p class="name">GENRES</p>
                 </form>
-                <form class="item" action="{% url 'catalog' %}" method="post">
+                <form class="item" action="{% url 'authors' %}" method="post">
                     {% csrf_token %}
                     <input type="text" name="id" value="3" hidden>
                     <button class="overlay-container">
