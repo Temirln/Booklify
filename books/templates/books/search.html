@@ -5,24 +5,23 @@
 <div class="wrapper">
     <h2 class="searchResults">Search results</h2>
     <div class="bag-list">
+        {% for b in books %}
         <div class="bag-item-wrap">
             <div class="bag-items">
-                <img src="{% static 'books/images/product.png'%}">
+                <img src="{{ b.photo.url }}">
                 <div class="bag-item-content">
-                    <h1>Name of book</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                        simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is
-                        simply dummy text of
+                    <h1>{{b.title}}</h1>
+                    <p>
+                        {{b.content}}
                     </p>
-                    <form action="{% url 'book' %}" method="post">
-                        {% csrf_token %}
+                    <a href="{{ b.get_absolute_url }}">
                         <input type="text" name="id" hidden>
                         <button style="margin-right: 10px;">Read more</button>
-                    </form>
+                    </a>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 

@@ -4,13 +4,22 @@
 
 {% block content %}
 
-    <h1>{{title}}</h1>
+<h1 style="text-align: center;">{{title}}</h1>
+<div class="bag-list">
 
     {%for b in books%}
-        <label>
-            <h3>{{b.title}}</h3>
-            <input type="submit" value="book">
-        </label>
+    
+        <div class="bag-item-wrap">
+            <div class="bag-items">
+                <img src="{{ b.photo.url }}">
+                <div class="bag-item-content">
+                    <h1>{{b.title}}</h1>
+                </div>
+            </div>
+        </div>
+    
     {% endfor %}
+    
+</div>
 
 {% endblock %}

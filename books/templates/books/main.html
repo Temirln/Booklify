@@ -15,8 +15,7 @@
     <div class="container">
         <div class="item-list-container">
             <div class="item-list-grid">
-                <form class="item" action="{% url 'authors' %}" method="post">
-                    {% csrf_token %}
+                <a class="item" href="{% url 'authors' %}">
                     <input type="text" name="id" value="1" hidden>
                     <button class="overlay-container">
                         <div class="img-overlay">
@@ -26,9 +25,9 @@
                         </div>
                     </button>
                     <p class="name">AUTHORS</p>
-                </form>
-                <form class="item" action="{% url 'genres' %}" method="post">
-                    {% csrf_token %}
+                </a>
+                <a class="item" href="{% url 'genres' %}" >
+                    <!-- {% csrf_token %} -->
                     <input type="text" name="id" value="2" hidden>
                     <button class="overlay-container">
                         <div class="img-overlay">
@@ -38,9 +37,8 @@
                         </div>
                     </button>
                     <p class="name">GENRES</p>
-                </form>
-                <form class="item" action="{% url 'authors' %}" method="post">
-                    {% csrf_token %}
+                </a>
+                <a class="item" href="{% url 'authors' %}">
                     <input type="text" name="id" value="3" hidden>
                     <button class="overlay-container">
                         <div class="img-overlay">
@@ -50,7 +48,7 @@
                         </div>
                     </button>
                     <p class="name">BESTSELLERS</p>
-                </form>
+                </a>
             </div>
         </div>
     </div>

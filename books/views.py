@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
-
+from django.urls import reverse_lazy
+from django.views.generic import ListView,DetailView,CreateView
 from books.forms import AddBookForm
 
 
@@ -9,27 +10,41 @@ from books.forms import AddBookForm
 from .models import *
 
 
+
+
 ############### INDEX ##################
-def index(request):
-    books = Books.objects.all() 
-    context = {
-        'books': books,
-        'title': 'Booklify'
-    }
-    return render(request, 'books/index.html', context = context)
+class HomeBooks(ListView):
+    model = Books
+    template_name = 'books/index.html'
+    context_object_name = 'books'
+    # extra_context = {'title':"Index Main "}
+
+    def get_context_data(self, *, object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Index Page"
+        return context
+
+    def get_queryset(self):
+        return Books.objects.filter(is_published = True)
 
 
 
 ############### BOOK ##################
-def book(request,book_slug):
-    book = Books.objects.get(slug = book_slug)
-    context = {
-        'book':book,
-        'title': 'Book'
-    }
-    
-    return render(request, 'books/book.html', context = context)
-    # return HttpResponse(f'<h1>Book ID : {book.title}</h1>')
+class Book(DetailView):
+    model = Books
+    template_name = "books/book.html"
+    slug_url_kwarg = "book_slug"
+    context_object_name = "book"
+
+    def get_queryset(self):
+        return Books.objects.filter(slug=self.kwargs['book_slug'] ,is_published = True)
+
+    def get_context_data(self, *, object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['book']
+        return context
+
+
 
 
 
@@ -76,10 +91,22 @@ def bag(request):
 
 ############### SEARCH ##################
 def search(request):
+    if request.POST:
+        seacrh_title = request.POST.get('seacrh')
+
+        books = Books.objects.filter(title__contains = seacrh_title) 
+    
+        context = {
+            'books':books,
+            'title': 'Search'
+        }
+
+        return render(request, 'books/search.html', context = context)
+    
     context = {
         'title': 'Search'
     }
-    
+
     return render(request, 'books/search.html', context = context)
 
 
@@ -91,6 +118,8 @@ def pageNotFound(request,exception):
 
 
 
+
+    
 
 ############### GENRES ##################
 def genres(request):
@@ -114,19 +143,35 @@ def authors(request):
 
 
 ############### LIST OF BOOKS ##################
-def BooksOfGenres(request,category_slug):
-    category = Category.objects.get(slug = category_slug)
+class BooksOfGenres(ListView):
+    model = Books
+    template_name = "books/listOfBooks.html"
+    context_object_name = "books"
+    allow_empty = False
 
-    books = Books.objects.filter(cat=category.pk,is_published= True)
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "List Of Books"
+        return context 
 
-    if len(books)==0:
-        raise Http404
-        
-    context = {
-        'books': books,
-        'title': 'List Of Books'
-    }
-    return render(request, 'books/listOfBooks.html',context=context)
+    def get_queryset(self):
+        return Books.objects.filter(cat__slug=self.kwargs['category_slug'] ,is_published = True)
+
+    
+
+
+
+
+# def BooksOfGenres(request,category_slug):
+#     category = Category.objects.get(slug = category_slug)
+#     books = Books.objects.filter(cat=category.pk,is_published= True)
+#     if len(books)==0:
+#         raise Http404
+#     context = {
+#         'books': books,
+#         'title': 'List Of Books'
+#     }
+#     return render(request, 'books/listOfBooks.html',context=context)
 
 
 
@@ -156,19 +201,27 @@ def register(request):
 
 
 ############### ADD BOOK ##################
-def addbook(request):
-    
-    if request.method == 'POST':
-        form = AddBookForm(request.POST , request.FILES)
-        if form.is_valid():            
-            form.save()
-            return redirect('home')
+class AddBook(CreateView):
+    form_class = AddBookForm
+    template_name = 'books/addbook.html'
+    success_url = reverse_lazy('home')
 
-    else:
-        form = AddBookForm()    
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add Book"
+        return context 
 
-    context = {
-        'form':form,
-        'title': 'addbook'
-    }
-    return render(request, 'books/addbook.html',context=context)
+
+# def addbook(request):
+#     if request.method == 'POST':
+#         form = AddBookForm(request.POST , request.FILES)
+#         if form.is_valid():            
+#             form.save()
+#             return redirect('home')
+#     else:
+#         form = AddBookForm()    
+#     context = {
+#         'form':form,
+#         'title': 'addbook'
+#     }
+#     return render(request, 'books/addbook.html',context=context)

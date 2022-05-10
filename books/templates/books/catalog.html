@@ -9,8 +9,7 @@
                 
                 {% for cat_a_log in catalog  %}
                 
-                <form class="item" action="{{ cat_a_log.get_absolute_url }}" method="post">
-                    {% csrf_token %}
+                <a class="item" href="{{ cat_a_log.get_absolute_url }}">
                     <!-- <input type="text" name="id" value="9" hidden> -->
                     <button class="overlay-container">
                         <div class="img-overlay">
@@ -20,7 +19,7 @@
                         </div>
                     </button> 
                     <p class="name">{{cat_a_log.name}}</p>
-                </form>
+                </a>
 
                 {% endfor %}
             </div>
