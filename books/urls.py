@@ -1,19 +1,30 @@
-from django.urls import path
-
+from django.urls import include, path
+from rest_framework import routers
 
 from .views import *
 
+
+router = routers.DefaultRouter() # SimpleRouter
+router.register(r'book',BookViewSet, basename="book")
+print(router.urls)
+
+
 urlpatterns =[
+
+    path('api/v1/', include(router.urls)),
+
+
     path('',HomeBooks.as_view(), name='home'),
     path('login/',login,name='login'),
     path('register/',register,name ='register'),
 
 
     path('main/',main,name = 'main'),
-    path('authors/',authors,name = 'authors'),
+    path('authors/',authors ,name = 'authors'),
+    path('authors/<slug:author_slug>/', BooksOfAuthors.as_view() ,name = 'BooksOfAuthors'),
 
     path('genres/',genres,name = 'genres'),
-    path('genres/<slug:category_slug>/', BooksOfGenres.as_view() ,name = 'BooksOfGenres'),
+    path('genres/<slug:genre_slug>/', BooksOfGenres.as_view() ,name = 'BooksOfGenres'),
 
     path('add-book/',AddBook.as_view() ,name = 'addbook'),
     path('search/',search ,name = 'search'),

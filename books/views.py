@@ -2,18 +2,62 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView
+from books.serializers import *
 from books.forms import AddBookForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework import generics , viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
 from .models import *
+from .utils import *
+###################################################################################################
+#####################################   REST API ##################################################
+
+class BookViewSet(viewsets.ModelViewSet):
+    # queryset = Books.objects.all()
+    serializer_class = BookSerializer 
+
+    def get_queryset(self):
+        pk = self.kwargs.get("pk")
+        if not pk:
+            return Books.objects.all()[:2]
+        
+        return Books.objects.filter(pk= pk)
+
+    @action(methods=['get'],detail = True)
+    def genre(self,request , pk):
+        genr = Genre.objects.get(pk = pk)
+        return Response({'id':genr.id,'genre': genr.name})
+
+    @action(methods=['get'],detail = False)
+    def genres(self,request):
+        genres = Genre.objects.all()
+        return Response({'genres': GenresSerializer(genres,many=True).data})
+
+    @action(methods=['get'],detail = True)
+    def author(self,request , pk):
+        author = Authors.objects.get(pk = pk)
+        return Response({'id':author.id,'genre': author.name})
+
+    @action(methods=['get'],detail = False)
+    def authors(self,request):
+        authors = Authors.objects.all()
+        return Response({'authors': AuthorsSerializer(authors,many=True).data})
+
+
+
 
 
 
 
 ############### INDEX ##################
-class HomeBooks(ListView):
+class HomeBooks(DataMixin,ListView):
     model = Books
     template_name = 'books/index.html'
     context_object_name = 'books'
@@ -21,8 +65,9 @@ class HomeBooks(ListView):
 
     def get_context_data(self, *, object_list = None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Index Page"
-        return context
+        c_def = self.get_user_context(title="Index Page")
+        # context['title'] = "Index Page"
+        return dict(list(context.items())+list(c_def.items()))
 
     def get_queryset(self):
         return Books.objects.filter(is_published = True)
@@ -30,7 +75,7 @@ class HomeBooks(ListView):
 
 
 ############### BOOK ##################
-class Book(DetailView):
+class Book(DataMixin ,DetailView):
     model = Books
     template_name = "books/book.html"
     slug_url_kwarg = "book_slug"
@@ -41,14 +86,16 @@ class Book(DetailView):
 
     def get_context_data(self, *, object_list = None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = context['book']
-        return context
+        c_def = self.get_user_context(title = context['book'])
+        # context['title'] = context['book']
+        return dict(list(context.items())+list(c_def.items()))
 
 
 
 
 
 ############### PROFILE ##################
+@login_required
 def profile(request):
     context = {
         'title': 'Profile'
@@ -58,18 +105,8 @@ def profile(request):
 
 
 
-############### SEARCH RESULT ##################
-def searchResult(request):
-    context = {
-        'title': 'Search Result'
-    }
-    
-    return render(request, 'books/searchResult.html', context = context)
-
-
-
-
 ############### BOOKMARKS ##################
+@login_required
 def bookmarks(request):
     context = {
         'title': 'Bookmarks'
@@ -80,6 +117,8 @@ def bookmarks(request):
 
 
 ############### BAG ##################
+
+@login_required
 def bag(request):
     context = {
         'title': 'Bag'
@@ -123,9 +162,9 @@ def pageNotFound(request,exception):
 
 ############### GENRES ##################
 def genres(request):
-    category = Category.objects.all()
+    genre = Genre.objects.all()
     context = {
-        'catalog':category,
+        'catalog':genre,
         'title': 'Genres'
     }
     return render(request, 'books/catalog.html',context=context)
@@ -133,17 +172,32 @@ def genres(request):
 
 ############### AUTHORS ##################
 def authors(request):
-    # authors = Category.objects.all()
-    # context = {
-    #     'catalog':authors,
-    #     'title': 'Authors'
-    # }
-    # return render(request, 'books/catalog.html',context=context)
-    return HttpResponseNotFound('<h1>Page In Progress</h1>')
+    authors = Authors.objects.all()
+    context = {
+        'catalog':authors,
+        'title': 'Authors'
+    }
+    return render(request, 'books/catalog.html',context=context)
+
+############### LIST OF BOOKS AUTHORS ##################
+class BooksOfAuthors(DataMixin, ListView):
+    model = Books
+    template_name = "books/ListOfBooks.html"
+    context_object_name = "books"
+    allow_empty = False
+
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title = 'List Of Books')
+        # context['title'] = "List Of Books"
+        return dict(list(context.items())+list(c_def.items()))
+
+    def get_queryset(self):
+        return Books.objects.filter(author__slug=self.kwargs['author_slug'] ,is_published = True)
 
 
-############### LIST OF BOOKS ##################
-class BooksOfGenres(ListView):
+############### LIST OF GENRES BOOKS ##################
+class BooksOfGenres(DataMixin, ListView):
     model = Books
     template_name = "books/listOfBooks.html"
     context_object_name = "books"
@@ -151,27 +205,15 @@ class BooksOfGenres(ListView):
 
     def get_context_data(self, * , object_list = None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "List Of Books"
-        return context 
+        c_def = self.get_user_context(title = 'List Of Books')
+        # context['title'] = "List Of Books"
+        return dict(list(context.items())+list(c_def.items()))
 
     def get_queryset(self):
-        return Books.objects.filter(cat__slug=self.kwargs['category_slug'] ,is_published = True)
+        return Books.objects.filter(genr__slug=self.kwargs['genre_slug'] ,is_published = True)
 
     
 
-
-
-
-# def BooksOfGenres(request,category_slug):
-#     category = Category.objects.get(slug = category_slug)
-#     books = Books.objects.filter(cat=category.pk,is_published= True)
-#     if len(books)==0:
-#         raise Http404
-#     context = {
-#         'books': books,
-#         'title': 'List Of Books'
-#     }
-#     return render(request, 'books/listOfBooks.html',context=context)
 
 
 
@@ -201,27 +243,14 @@ def register(request):
 
 
 ############### ADD BOOK ##################
-class AddBook(CreateView):
+class AddBook(LoginRequiredMixin ,DataMixin ,CreateView):
     form_class = AddBookForm
     template_name = 'books/addbook.html'
     success_url = reverse_lazy('home')
+    login_url = reverse_lazy('login')   
 
     def get_context_data(self, * , object_list = None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Add Book"
-        return context 
-
-
-# def addbook(request):
-#     if request.method == 'POST':
-#         form = AddBookForm(request.POST , request.FILES)
-#         if form.is_valid():            
-#             form.save()
-#             return redirect('home')
-#     else:
-#         form = AddBookForm()    
-#     context = {
-#         'form':form,
-#         'title': 'addbook'
-#     }
-#     return render(request, 'books/addbook.html',context=context)
+        # context['title'] = "Add Book"
+        c_def = self.get_user_context(title = "Add Book")
+        return dict(list(context.items())+list(c_def.items()))

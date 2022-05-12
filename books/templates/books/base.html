@@ -36,9 +36,11 @@
                 <div class="search-container">
                     <a>Search</a>
                 </div>
+                {% if user.is_authenticated %}
                 <div class="register-container">
                     <a href="{% url 'addbook' %}">Add Book</a>
                 </div>
+                {% endif %}
                 <div class="bag-container" style="text-align: center;">
                     <a href="{% url 'bag' %}">Bag</a>
                 </div>

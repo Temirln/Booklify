@@ -11,11 +11,11 @@ class AddBookForm(forms.ModelForm):
 
     def __init__(self, *args,**kwargs):
         super().__init__(*args,**kwargs)
-        self.fields['cat'].empty_label = "Not Chosen"
+        self.fields['genr'].empty_label = "Not Chosen"
 
     class Meta:
         model = Books
-        fields = ['title','slug','content','photo','is_published','cat']
+        fields = ['title','slug','content','photo','is_published','genr','author']
 
         # widgets = {
         #     'title':forms.TextInput(attrs={'class':'form-input'}),

@@ -12,7 +12,9 @@ class Books(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Time Created")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Time Updated") 
     is_published = models.BooleanField(default=True, verbose_name="Published?")
-    cat = models.ForeignKey('Category',on_delete=models.PROTECT, null=True, verbose_name="Category ID", related_name="get_books")
+    genr = models.ForeignKey('Genre',on_delete=models.PROTECT, null=True, verbose_name="Genre ID", related_name="get_genres_books")
+    author = models.ForeignKey('Authors',on_delete=models.PROTECT, null=True, verbose_name="Author ID", related_name="get_authors_books")
+
 
     def __str__(self):
         return self.title 
@@ -26,17 +28,34 @@ class Books(models.Model):
         ordering = ['time_create','title']
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100,db_index=True , verbose_name="Category Name")
+class Genre(models.Model):
+    name = models.CharField(max_length=100,db_index=True , verbose_name="Genre Name")
     slug = models.SlugField(max_length=255,unique=True,db_index=True,verbose_name="URL")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('BooksOfGenres',kwargs={'category_slug':self.slug})
+        return reverse('BooksOfGenres',kwargs={'genre_slug':self.slug})
 
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural="Categories"
+        verbose_name = "Genre"
+        verbose_name_plural="Genres"
+        ordering = ['name']
+
+
+
+class Authors(models.Model):
+    name = models.CharField(max_length=100,db_index=True , verbose_name="Authors Name")
+    slug = models.SlugField(max_length=255,unique=True,db_index=True,verbose_name="URL")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('BooksOfAuthors',kwargs={'author_slug':self.slug})
+
+    class Meta:
+        verbose_name = "Author"
+        verbose_name_plural="Authors"
         ordering = ['name']

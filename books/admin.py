@@ -12,7 +12,13 @@ class BookAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':("title",)}
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('id','name','slug')
+    list_display_links = ('id','name')
+    search_fields = ('name',)
+    prepopulated_fields = {'slug':("name",)}
+
+class AuthorsAdmin(admin.ModelAdmin):
     list_display = ('id','name','slug')
     list_display_links = ('id','name')
     search_fields = ('name',)
@@ -20,4 +26,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Books , BookAdmin )
-admin.site.register(Category , CategoryAdmin)
+admin.site.register(Genre , GenreAdmin)
+admin.site.register(Authors , AuthorsAdmin)
