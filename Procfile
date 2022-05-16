@@ -1,1 +1,0 @@
-web: gunicorn booklify.wsgi:application --log-file -

@@ -4,7 +4,7 @@ from books.models import *
 # Register your models here.
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('id','title','slug','time_create','time_update','photo','content','is_published')
+    list_display = ('id','title','slug','time_create','time_update','photo','content','is_published','genr_id','author_id')
     list_display_links = ('title',)
     search_fields = ('title','content')
     list_editable = ('is_published',)

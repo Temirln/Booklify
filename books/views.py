@@ -2,12 +2,18 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView
+from books.forms import LoginUserForm
+from books.forms import RegisterUserForm
 from books.serializers import *
 from books.forms import AddBookForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import generics , viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
+
+from django.contrib.auth.views import LoginView 
+from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
 
@@ -58,6 +64,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
 ############### INDEX ##################
 class HomeBooks(DataMixin,ListView):
+    paginate_by = 2
     model = Books
     template_name = 'books/index.html'
     context_object_name = 'books'
@@ -181,6 +188,7 @@ def authors(request):
 
 ############### LIST OF BOOKS AUTHORS ##################
 class BooksOfAuthors(DataMixin, ListView):
+    
     model = Books
     template_name = "books/ListOfBooks.html"
     context_object_name = "books"
@@ -198,6 +206,7 @@ class BooksOfAuthors(DataMixin, ListView):
 
 ############### LIST OF GENRES BOOKS ##################
 class BooksOfGenres(DataMixin, ListView):
+    paginate_by = 2
     model = Books
     template_name = "books/listOfBooks.html"
     context_object_name = "books"
@@ -227,19 +236,35 @@ def main(request):
 
 
 ############### LOGIN ##################
-def login(request):
-    context = {
-        'title': 'Login'
-    }
-    return render(request, 'books/login.html',context=context)
+class LoginUser(DataMixin, LoginView):
+    form_class = LoginUserForm
+    template_name = 'books/login.html'
+
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title = 'Login')
+        return dict(list(context.items())+list(c_def.items()))
+
+    def get_success_url(self):
+        return reverse('profile')
+
+################### LOGOUT ########################
+def logout_user(request):
+    logout(request)
+    return redirect('main')
+
 
 
 ############### REGISTER ##################
-def register(request):
-    context = {
-        'title': 'Registration'
-    }
-    return render(request, 'books/register.html',context=context)
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'books/register.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title = 'Registration')
+        return dict(list(context.items())+list(c_def.items()))
 
 
 ############### ADD BOOK ##################

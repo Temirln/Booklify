@@ -1,6 +1,9 @@
+from logging import PlaceHolder
 from django import forms
 from books.models import *
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 
 class AddBookForm(forms.ModelForm):
     # title = forms.CharField(max_length=255, label = "Book Title")
@@ -28,3 +31,20 @@ class AddBookForm(forms.ModelForm):
             raise ValidationError('Lenght is too much')
 
         return title     
+
+
+class RegisterUserForm(UserCreationForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'input-text','placeholder':"Type your First Name"}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'input-text','placeholder':"Type your Last Name"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'input-text','placeholder':"Type your Username"}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'input-text','placeholder':"Type your e-mail"}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Type your password"}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Confirm your password"}))
+
+    class Meta:
+        model = User
+        fields = ('first_name','last_name','username','email','password1','password2')
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class':'input-text','placeholder':"Type your Username"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Type your Password"}))

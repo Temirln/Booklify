@@ -44,13 +44,21 @@
                 <div class="bag-container" style="text-align: center;">
                     <a href="{% url 'bag' %}">Bag</a>
                 </div>
+                {% if request.user.is_authenticated %}
+                <div class="login-container">
+                    <a href="{% url 'profile' %}">{{user.username}}</a>
+                </div>
+                <div class="register-container">
+                    <a href="{% url 'logout' %}">logout</a>
+                </div>
+                {% else %}
                 <div class="login-container">
                     <a href="{% url 'login' %}">Login</a>
                 </div>
                 <div class="register-container">
                     <a href="{% url 'register' %}">Register</a>
                 </div>
-                
+                {% endif %}
             </div>
         </header>
     </div>
@@ -58,6 +66,29 @@
     {% block content %}
 
     {% endblock %}
+
+{% if page_obj.has_other_pages %}
+    
+    <ul style="padding:50px ;">
+        {% if page_obj.has_previous %}
+        <li style="color: black;padding: 20px;float: left;">
+            <a href="?page={{page_obj.previous_page_number}}" style="color: black;"><h2>&lt;</h2></a>
+        </li>
+        {% endif %}
+        {% for p in paginator.page_range %}
+        {% if p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+        <li style="color: black;padding: 20px;float: left;">
+            <a href="?page={{p}}" style="color: black;"><h2>{{p}}</h2></a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li style="color: black;padding: 20px;float: left;">
+            <a href="?page={{page_obj.next_page_number}}" style="color: black;"><h2>&gt;</h2></a>
+        </li>
+        {% endif %}
+    </ul>
+{% endif %}
 
     <div class="black-bg">
         <div class="container">

@@ -15,8 +15,9 @@ urlpatterns =[
 
 
     path('',HomeBooks.as_view(), name='home'),
-    path('login/',login,name='login'),
-    path('register/',register,name ='register'),
+    path('login/',LoginUser.as_view(),name='login'),
+    path('logout/',logout_user,name='logout'),
+    path('register/',RegisterUser.as_view(),name ='register'),
 
 
     path('main/',main,name = 'main'),
@@ -31,6 +32,6 @@ urlpatterns =[
     path('bag/',bag ,name = 'bag'),
     path('profile/',profile ,name = 'profile'),
     path('bookmarks/',bookmarks ,name = 'bookmarks'),
-
+    
     path('book/<slug:book_slug>/',Book.as_view() ,name = 'book'),
 ]
