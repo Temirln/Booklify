@@ -48,8 +48,13 @@ h2.searchResults {
 
 
 .wrapper {
-    min-height: calc(100vh - 103px);
+    /* min-height: calc(100vh - 103px); */
+    position: relative;
     width: 1440px;
+    max-height: calc(100vh - 283px);
+    display: block;
+    height: auto;
+    max-height: 100%;
 }
 
 .container {
@@ -138,8 +143,8 @@ form .form-login {
     padding: 12px 70px;
     border: 1px solid #000;
     width: 210px;
-    margin-top: 55px;
     margin-left: 70px;
+    margin-top: 10px;
     cursor: pointer;
     transition: .1s;
 }
@@ -638,3 +643,20 @@ header .bag-container,
     background: #E1DFDF;
     color: black;
 }
+
+form .form-login-google {
+    background: #EDEDED;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    padding: 12px 50px;
+    border: 1px solid #000;
+    width: 210px;
+    margin-top: 10px;
+    margin-left: 70px;
+    cursor: pointer;
+    transition: .1s;
+  }
+  form .form-login-google:hover{
+    background: #B7B5B0;
+  }

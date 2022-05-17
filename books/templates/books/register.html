@@ -1,6 +1,7 @@
 {% extends 'books/base.html' %}
 
 {% load static %}
+{% load socialaccount %}
 
 {% block content %}
 
@@ -11,7 +12,6 @@
             
             <div class="logo"><img src="{% static 'books/images/logo.png' %}" alt="logo"></div>
             <div class="form-background">
-                <!-- {{form.as_p}}/ -->
                 {% for f in form %}
                 <div class="form-group">
                     {{f}}
@@ -23,6 +23,8 @@
                 </div>
                 {% endfor %}
                 <button type="submit" class="form-login">Register</button>
+                
+                <a href="{% provider_login_url 'google' %}" class="form-login-google">with Google</a>
             </div>
         </form>
         <p style="margin-left:485px ;margin-top: 588px">Already have an account? <a href="{% url 'login' %}">Log in</a></p>

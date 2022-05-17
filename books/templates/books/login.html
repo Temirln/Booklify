@@ -27,14 +27,8 @@
                     {{form.non_field_errors}}
                 </div>
                 {% endif %}
-                <!-- <div class="form-group">
-                    <input type="email" name="email" class="input-text" placeholder="Type your e-mail">
-                </div> -->
-                <!-- <div class="form-group">
-                    <input type="password" name="password" class="input-text" placeholder="Type your password">
-                </div> -->
                 <button type="submit" class="form-login">Log in</button>
-                <a href="{% provider_login_url 'google' %}" class="form-login">Google Login</a>
+                <a href="{% provider_login_url 'google' %}" class="form-login-google">with Google</a>
             </div>
         </form>
         <p style="margin-left:439px ;margin-top: 505px">You don't have an account? <a href="{% url 'register' %}">Сreate a new account</a></p>
