@@ -1,9 +1,9 @@
+from dataclasses import field
 from logging import PlaceHolder
 from django import forms
 from books.models import *
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 
 class AddBookForm(forms.ModelForm):
     # title = forms.CharField(max_length=255, label = "Book Title")
@@ -48,3 +48,19 @@ class RegisterUserForm(UserCreationForm):
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'input-text','placeholder':"Type your Username"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Type your Password"}))
+
+
+class UpdateProfileUser(forms.ModelForm):
+    class Meta:
+        model = User
+        fields= ['username']
+
+class UpdateProfilePassword(forms.ModelForm):
+    class Meta:
+        model = User
+        fields= ['password']
+
+class UpdateProfilePicture(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_image']

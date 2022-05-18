@@ -1,7 +1,9 @@
-from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.shortcuts import redirect, render
+from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView
+from books.forms import UpdateProfilePassword
+from books.forms import UpdateProfilePicture, UpdateProfileUser
 from books.forms import LoginUserForm
 from books.forms import RegisterUserForm
 from books.serializers import *
@@ -28,6 +30,13 @@ from .utils import *
 class BookViewSet(viewsets.ModelViewSet):
     # queryset = Books.objects.all()
     serializer_class = BookSerializer 
+
+    fav = bool
+
+    def get(self, request, *args, **kwargs):
+        us = request.user
+        if Books.markbook.filter(id= request.user.id).exists():
+            fav = True
 
     def get_queryset(self):
         pk = self.kwargs.get("pk")
@@ -93,8 +102,9 @@ class Book(DataMixin ,DetailView):
 
     def get_context_data(self, *, object_list = None ,**kwargs):
         context = super().get_context_data(**kwargs)
+        # con = Books.objects.filter(slug=self.kwargs['book_slug'] ,is_published = True, markbook=self.request.user.id)
+        context['marked']= Books.objects.filter(slug=self.kwargs['book_slug'] ,is_published = True, markbook=self.request.user.id)
         c_def = self.get_user_context(title = context['book'])
-        # context['title'] = context['book']
         return dict(list(context.items())+list(c_def.items()))
 
 
@@ -104,8 +114,24 @@ class Book(DataMixin ,DetailView):
 ############### PROFILE ##################
 @login_required
 def profile(request):
+    if request.method == "POST":
+        u_form = UpdateProfileUser(request.POST, instance=request.user)
+        # pass_form = UpdateProfilePassword(request.POST,instance=request.user.password)
+        p_form = UpdateProfilePicture(request.POST,request.FILES,instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            # pass_form.save()
+            p_form.save()
+    else:
+        u_form = UpdateProfileUser(instance=request.user)
+        pass_form = UpdateProfilePassword()
+        p_form = UpdateProfilePicture(instance=request.user.profile)
+
+    
     context = {
-        'title': 'Profile'
+        'title': 'Profile',
+        'u_form':u_form,
+        'p_form':p_form
     }
     
     return render(request, 'books/profile.html', context = context)
@@ -115,11 +141,26 @@ def profile(request):
 ############### BOOKMARKS ##################
 @login_required
 def bookmarks(request):
+
+    books= Books.objects.filter(markbook=request.user)
+
     context = {
-        'title': 'Bookmarks'
+        'title': 'Bookmarks',
+        'books':books
     }
     
     return render(request, 'books/bookmarks.html', context = context)
+
+
+################ MARK BOOK #####################
+@login_required
+def markbook(request,book_id):
+    book= get_object_or_404(Books,id= book_id)
+    if book.markbook.filter(id = request.user.id).exists():
+        book.markbook.remove(request.user)
+    else:
+        book.markbook.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 

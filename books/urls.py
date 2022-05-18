@@ -32,6 +32,7 @@ urlpatterns =[
     path('bag/',bag ,name = 'bag'),
     path('profile/',profile ,name = 'profile'),
     path('bookmarks/',bookmarks ,name = 'bookmarks'),
+    path('bookmark/<int:book_id>',markbook,name = 'markbook'),
     
     path('book/<slug:book_slug>/',Book.as_view() ,name = 'book'),
 ]

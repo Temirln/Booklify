@@ -5,39 +5,29 @@
 {% block content %}
 
 <div class="wrapper">
+    <h1>{{user}}</h1>
     <div class="bag-list">
+        {% for b in books %}
         <div class="bag-item-wrap">
             <div class="bag-items">
-                <img src="{% static 'books/images/product.png' %}">
+                <img src="{{b.photo.url}}">
                 <div class="bag-item-content">
-                    <h1>Name of book</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                        dummy
-                        text of the printing and typesetting industry.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply
-                        dummy text
-                        of
+                    <h1>{{b.title}}</h1>
+                    <p>
+                        {{b.content}}
                     </p>
                 </div>
             </div>
             <div class="bag-forms">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="text" name="id" hidden>
-                    <button>Read more</button>
-                </form>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="text" name="id" hidden>
-                    <button>Add to bag</button>
-                </form>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="text" name="id" hidden>
-                    <button>Remove from bookmarks</button>
-                </form>
+                <a href="{{b.get_absolute_url}}"><button>Read More</button></a>
+                <a href=""><button>Add to Bag</button></a>
+                <a href="{% url 'markbook' b.id %}"><button>Remove from bookmarks</button></a>       
+                
+                
+            
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

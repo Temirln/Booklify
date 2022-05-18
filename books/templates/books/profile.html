@@ -5,9 +5,9 @@
 <div class="wrapper">
     <div class="product-items">
         <div class="useraccount">
-            <img src="{% static 'books/images/product.png' %}">
-            <h2 style="text-align: center;margin-top: 10px;">User name</h2>
-            <p style="text-align: center;">Email:abcdefg@hijk</p>
+            <img src="{{user.profile.profile_image.url}}">
+            <h2 style="text-align: center;margin-top: 10px;">{{user.username}}</h2>
+            <p style="text-align: center;">{{user.email}}</p>
         </div>
         <div class="user-item">
             
@@ -17,12 +17,27 @@
                 <input type="text" name="id" value="" hidden>
                 <button>Edit photo</button>
             </form>
+            <button><a href="{% url 'bookmarks' %}">Bookmarks</a></button>
+            
             <form action="/" method="post">
                 <input type="text" name="id" value="" hidden>
                 <button>Change password</button>
             </form>
            
         </div>
+    </div>
+</div>
+
+
+<div class="wrapper">
+    <div class="product-items">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{u_form}}
+            {{p_form}}
+            <input type="submit" value="Update">
+        </form>
+        
     </div>
 </div>
 

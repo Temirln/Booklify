@@ -725,3 +725,27 @@ form .form-login-google {
   form .form-login-google:hover{
     background: #B7B5B0;
   }
+
+  .product-item-line .product-item-flex .button-marked{
+    border: none;
+    display: inline-block;
+    background: black;
+    border: 1px solid black;
+    color: white;
+    font-size: 20px;
+    padding: 0.7rem 1rem;
+    transition: .3s;
+    margin-top: 10px;
+  }
+
+  .product-item-line .product-item-flex .button-marked:hover{
+    border: none;
+    display: inline-block;
+    background: white;
+    border: 1px solid black;
+    color: black;
+    font-size: 20px;
+    padding: 0.7rem 1rem;
+    transition: .3s;
+    margin-top: 10px;
+  }

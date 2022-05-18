@@ -17,8 +17,9 @@
         <a href="{% url 'main' %}">Home</a>
         <a href="{% url 'profile' %}">My account</a>
         <a href="{% url 'bookmarks' %}">Bookmarks</a>
-        <a href="">Help</a>
-        <a href="">Log out</a>
+        <a href="">Help</a>    
+        <a href="{% url 'logout' %}">Log Out</a>
+        
     </nav>
     <div class="container menu-head">
         <header>
@@ -52,12 +53,12 @@
                     <img src="{% static 'books/images/123.png' %}" class="object-fit-cover">
                 </div>
                 {% else %}
-                <div class="login-container">
-                    <a href="{% url 'login' %}">Login</a>
-                </div>
-                <div class="register-container">
-                    <a href="{% url 'register' %}">Register</a>
-                </div>
+                    <div class="login-container">
+                        <a href="{% url 'login' %}">Login</a>
+                    </div>
+                    <div class="register-container">
+                        <a href="{% url 'register' %}">Register</a>
+                    </div>
                 {% endif %}
             </div>
         </header>

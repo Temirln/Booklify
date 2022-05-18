@@ -8,16 +8,23 @@
             <div class="product-item-flex">
                 <img src="{{book.photo.url}}">
                 <h2 style="margin-top:10px ;">{{book.title}}</h2>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <input type="text" name="id" value="" hidden>
-                    <button>Mark a book</button>
-                </form>
+                
+                {% if marked %}
+                <a href="{% url 'markbook' book.id %}"><button class="button-marked">Marked</button></a>
+                {% else %}
+                <a href="{% url 'markbook' book.id %}"><button>Mark a Book</button></a>
+                {% endif %}
+                
             </div>
 
             <div  style= "background-color:#ededed;padding: 50px">
                 <p>
                     {{book.content}}
+
+                </p>
+                <p>
+                    {{book.markbook}}
+                    
                 </p>
                 <h3 style="margin-top:20px">Author:{{book.author}}</h3>
                 <h3 style="margin-top:10px">Genre: {{book.genr}}</h3>

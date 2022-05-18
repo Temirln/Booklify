@@ -1,5 +1,7 @@
+from email.policy import default
 from statistics import mode
 from tabnanny import verbose
+from PIL import Image
 import django
 from django.db import models
 from django.urls import reverse
@@ -14,6 +16,7 @@ class Books(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Time Created")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Time Updated") 
     is_published = models.BooleanField(default=True, verbose_name="Published?")
+    markbook = models.ManyToManyField(User,related_name="Markbook",default=None)
     genr = models.ForeignKey('Genre',on_delete=models.PROTECT, null=True, verbose_name="Genre ID", related_name="get_genres_books")
     author = models.ForeignKey('Authors',on_delete=models.PROTECT, null=True, verbose_name="Author ID", related_name="get_authors_books")
 
@@ -63,19 +66,24 @@ class Authors(models.Model):
         ordering = ['name']
 
 
-class Bookmarks(models.Model):
-    RATE_CHOICES = (
-        (1,'Ok'),
-        (2,'Fine'),
-        (3,'Good'),
-        (4,'Amazing'),
-        (5,'Incredible')
-    )
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    book = models.ForeignKey(Books,on_delete=models.CASCADE)
-    like = models.BooleanField(default=False)
-    in_bookmarks = models.BooleanField(default=False)
-    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+
+def upload_to(instance, filename):
+    return 'booklify/profile_pics/%s/%s' % (instance.user.id,filename)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+    profile_image = models.ImageField(default='booklify/profile_pics/default_profile.png',upload_to =upload_to)
 
     def __str__(self):
-        return f' {self.user.username} : {self.book}' 
+        return self.user.username
+
+    def save(self):
+        super().save()
+
+        img = Image.open(self.profile_image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300,300)
+            img.thumbnail(output_size)
+            img.save(self.profile_image.path)
