@@ -24,7 +24,10 @@ class AuthorsAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     prepopulated_fields = {'slug':("name",)}
 
+class BookmarksAdmin(admin.ModelAdmin):
+    pass
 
+admin.site.register(Bookmarks, BookmarksAdmin)
 admin.site.register(Books , BookAdmin )
 admin.site.register(Genre , GenreAdmin)
 admin.site.register(Authors , AuthorsAdmin)

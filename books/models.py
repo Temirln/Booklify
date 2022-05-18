@@ -1,7 +1,9 @@
 from statistics import mode
 from tabnanny import verbose
+import django
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Books(models.Model):
@@ -59,3 +61,21 @@ class Authors(models.Model):
         verbose_name = "Author"
         verbose_name_plural="Authors"
         ordering = ['name']
+
+
+class Bookmarks(models.Model):
+    RATE_CHOICES = (
+        (1,'Ok'),
+        (2,'Fine'),
+        (3,'Good'),
+        (4,'Amazing'),
+        (5,'Incredible')
+    )
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    book = models.ForeignKey(Books,on_delete=models.CASCADE)
+    like = models.BooleanField(default=False)
+    in_bookmarks = models.BooleanField(default=False)
+    rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES)
+
+    def __str__(self):
+        return f' {self.user.username} : {self.book}' 
