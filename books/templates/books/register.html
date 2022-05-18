@@ -9,28 +9,30 @@
     <div class="container">
         <div class="logo"><img src="{% static 'books/images/logo.png' %}" alt="logo"></div>
         <div class="form-background">
-        <form action="" method="post">
-            {% csrf_token %}
-            
-           
-           
+            <form action="" method="post">
+                {% csrf_token %}
+
+
+
                 {% for f in form %}
                 <div class="form-group-registr">
                     {{f}}
                     {% if f.errors %}
-                        <div style="margin-top: 10px ;padding:10px ;border-color:red;border-radius:15px;border:3px solid black">
-                            {{f.errors}}
-                        </div>
+                    <div
+                        style="margin-top: 10px ;padding:10px ;border-color:red;border-radius:15px;border:3px solid black">
+                        {{f.errors}}
+                    </div>
                     {% endif %}
                 </div>
                 {% endfor %}
                 <button type="submit" class="form-login">Register</button>
-                
-            
-        </form>
-        <a href="{% provider_login_url 'google' %}"><button class="form-login-google">with Google</button></a>
-    </div>
-        <p style="margin-left:495px ;margin-top: 608px">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+
+
+            </form>
+            <a href="{% provider_login_url 'google' %}"><button class="form-login-google">with Google</button></a>
+        </div>
+        <p style="margin-left:495px ;margin-top: 608px">Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </p>
     </div>
 </div>
 
