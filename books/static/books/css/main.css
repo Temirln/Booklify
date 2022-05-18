@@ -52,7 +52,6 @@ h2.searchResults {
     min-height: calc(100vh - 103px);
     position: relative;
     width: 1440px;
-    /* max-height: calc(100vh - 283px); */
     display: block;
     height: auto;
     max-height: 100%;
@@ -377,13 +376,19 @@ header .svg-icons .activesearch {
 header .bag-container,
 .search-container,
 .login-container,
-.login-container {
+.img-container {
     width: 50px;
     animation: svganime 3s ease-in-out infinite;
     cursor: pointer;
     transition: .5s;
 }
-
+header .img-container{
+    margin-top: -5px;
+    margin-left: -18px;
+    width: 30px;
+    height: 30px;
+    object-fit:cover;
+}
 
 .hero h1 {
     font-style: normal;
@@ -681,6 +686,11 @@ header .bag-container,
 .product-items .user-item form {
     display: flex;
     justify-content: center;
+}
+.product-items .user-item a {
+    display: flex;
+    justify-content: center;
+
 }
 
 .product-items button {

@@ -48,8 +48,8 @@
                 <div class="login-container">
                     <a href="{% url 'profile' %}">{{user.username}}</a>
                 </div>
-                <div class="register-container">
-                    <a href="{% url 'logout' %}">logout</a>
+                <div class="img-container">
+                    <img src="{% static 'books/images/123.png' %}" class="object-fit-cover">
                 </div>
                 {% else %}
                 <div class="login-container">

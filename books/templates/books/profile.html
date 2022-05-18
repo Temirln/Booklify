@@ -10,14 +10,18 @@
             <p style="text-align: center;">Email:abcdefg@hijk</p>
         </div>
         <div class="user-item">
-            <form action="bookmarks.html" method="post">
+            
+            <a href="{% url 'bookmarks' %}"><button>Bookmarks</button></a>
+                
+            <form action="" method="post">
                 <input type="text" name="id" value="" hidden>
-                <button>Bookmarks</button>
+                <button>Edit photo</button>
             </form>
             <form action="/" method="post">
                 <input type="text" name="id" value="" hidden>
                 <button>Change password</button>
             </form>
+           
         </div>
     </div>
 </div>
