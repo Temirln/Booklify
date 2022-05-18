@@ -22,12 +22,13 @@ html{
 
 body {
     margin: 0;
-    min-height: 100%;
+    min-height: 120%;
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
 
 .form-background{
+    
     position: absolute;
     width: 350px;
     height: max-content;
@@ -48,10 +49,10 @@ h2.searchResults {
 
 
 .wrapper {
-    /* min-height: calc(100vh - 103px); */
+    min-height: calc(100vh - 103px);
     position: relative;
     width: 1440px;
-    max-height: calc(100vh - 283px);
+    /* max-height: calc(100vh - 283px); */
     display: block;
     height: auto;
     max-height: 100%;
@@ -117,25 +118,44 @@ form .form-group {
     margin-top: 35px;
     width: 312px;
     margin-left: 19px;
-
-}
-
-form .form-group .input-text {
+    
+  }
+  form .form-group .input-text {
     border: 1px solid #08021517;
     padding: 13px 23px;
     font-size: 16px;
-}
-
-form .form-group input:focus {
+  }
+  form .form-group input:focus {
     outline: none;
-}
-
-form .form-group input::placeholder {
+  }
+  
+  form .form-group input::placeholder {
     font-size: 16px;
     color: #AFAFAF;
-}
-
-form .form-login {
+  }
+  form .form-group-registr {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    width: 312px;
+    margin-left: 19px;
+    
+  }
+  form .form-group-registr .input-text {
+    border: 1px solid #08021517;
+    padding: 13px 23px;
+    font-size: 16px;
+  }
+  form .form-group-registr input:focus {
+    outline: none;
+  }
+  
+  form .form-group-registr input::placeholder {
+    font-size: 16px;
+    color: #AFAFAF;
+  }
+  
+  form .form-login {
     background: #EDEDED;
     font-size: 14px;
     text-transform: uppercase;
@@ -143,15 +163,50 @@ form .form-login {
     padding: 12px 70px;
     border: 1px solid #000;
     width: 210px;
+    margin-top: 25px;
     margin-left: 70px;
-    margin-top: 10px;
     cursor: pointer;
     transition: .1s;
-}
-
-form .form-login:hover {
+  }
+  form .form-login:hover{
     background: #B7B5B0;
-}
+  }
+
+  form .form-registr {
+    background: #EDEDED;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    padding: 12px 70px;
+    border: 1px solid #000;
+    width: 210px;
+    margin-top: 15px;
+    margin-left: 70px;
+    cursor: pointer;
+    transition: .1s;
+  }
+  form .form-registr:hover{
+    background: #B7B5B0;
+  }
+
+ 
+  .form-login-google {
+    background: #EDEDED;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    padding: 12px 50px;
+    border: 1px solid #000;
+    width: 210px;
+    margin-top: 5px;
+    margin-left: 70px;
+    cursor: pointer;
+    transition: .1s;
+  }
+ .form-login-google:hover{
+    background: #B7B5B0;
+  }
+
 
 .container a[href="register.html"] {
     font-weight: 900;

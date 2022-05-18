@@ -7,10 +7,12 @@
 
 <div class="wrapper">
     <div class="container">
+        <div class="logo"><img src="{% static 'books/images/logo.png'%}" alt="logo"></div>
+        <div class="form-background">
         <form action="" method="post">
             {% csrf_token %}
-            <div class="logo"><img src="{% static 'books/images/logo.png'%}" alt="logo"></div>
-            <div class="form-background">
+          
+           
                 
                 {% for f in form %}
                 <div class="form-group">
@@ -28,10 +30,11 @@
                 </div>
                 {% endif %}
                 <button type="submit" class="form-login">Log in</button>
-                <a href="{% provider_login_url 'google' %}" class="form-login-google">with Google</a>
-            </div>
+                
         </form>
-        <p style="margin-left:439px ;margin-top: 505px">You don't have an account? <a href="{% url 'register' %}">Сreate a new account</a></p>
+        <a href="{% provider_login_url 'google' %}"><button class="form-login-google">with Google</button></a>
+    </div>
+        <p style="margin-left:439px ;margin-top: 420px">You don't have an account? <a href="{% url 'register' %}">Сreate a new account</a></p>
     </div>
 </div>
 

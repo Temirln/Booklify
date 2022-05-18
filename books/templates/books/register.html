@@ -7,13 +7,15 @@
 
 <div class="wrapper">
     <div class="container">
+        <div class="logo"><img src="{% static 'books/images/logo.png' %}" alt="logo"></div>
+        <div class="form-background">
         <form action="" method="post">
             {% csrf_token %}
             
-            <div class="logo"><img src="{% static 'books/images/logo.png' %}" alt="logo"></div>
-            <div class="form-background">
+           
+           
                 {% for f in form %}
-                <div class="form-group">
+                <div class="form-group-registr">
                     {{f}}
                     {% if f.errors %}
                         <div style="margin-top: 10px ;padding:10px ;border-color:red;border-radius:15px;border:3px solid black">
@@ -24,10 +26,11 @@
                 {% endfor %}
                 <button type="submit" class="form-login">Register</button>
                 
-                <a href="{% provider_login_url 'google' %}" class="form-login-google">with Google</a>
-            </div>
+            
         </form>
-        <p style="margin-left:485px ;margin-top: 588px">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        <a href="{% provider_login_url 'google' %}"><button class="form-login-google">with Google</button></a>
+    </div>
+        <p style="margin-left:495px ;margin-top: 608px">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
     </div>
 </div>
 
