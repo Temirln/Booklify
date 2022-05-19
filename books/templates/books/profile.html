@@ -13,12 +13,15 @@
             
             <a href="{% url 'bookmarks' %}"><button>Bookmarks</button></a>
                 
-            <form action="" method="post">
-                <input type="text" name="id" value="" hidden>
-                <button>Edit photo</button>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <button class="inputWrapper">
+                    Edit Profile Image
+                    {% for f in p_form %}
+                    {{f}}
+                    {% endfor %}
+                </button>
             </form>
-            <button><a href="{% url 'bookmarks' %}">Bookmarks</a></button>
-            
             <form action="/" method="post">
                 <input type="text" name="id" value="" hidden>
                 <button>Change password</button>
@@ -26,19 +29,6 @@
            
         </div>
     </div>
-</div>
-
-
-<div class="wrapper">
-    <div class="product-items">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{u_form}}
-            {{p_form}}
-            <input type="submit" value="Update">
-        </form>
-        
-    </div>
-</div>
+</div>       
 
 {% endblock %}
