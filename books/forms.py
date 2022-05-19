@@ -1,3 +1,4 @@
+from cProfile import label
 from dataclasses import field
 from logging import PlaceHolder
 from django import forms
@@ -61,6 +62,11 @@ class UpdateProfilePassword(forms.ModelForm):
         fields= ['password']
 
 class UpdateProfilePicture(forms.ModelForm):
+    # profile_image = models.ImageField(./)
     class Meta:
         model = Profile
-        fields = ['profile_image']
+        fields = ('profile_image',)
+
+        widgets = {
+            'profile_image':forms.FileInput(attrs={'onchange':"this.form.submit()","class":"fileinput"})
+        }

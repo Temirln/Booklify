@@ -115,22 +115,22 @@ class Book(DataMixin ,DetailView):
 @login_required
 def profile(request):
     if request.method == "POST":
-        u_form = UpdateProfileUser(request.POST, instance=request.user)
+        # u_form = UpdateProfileUser(request.POST, instance=request.user)
         # pass_form = UpdateProfilePassword(request.POST,instance=request.user.password)
         p_form = UpdateProfilePicture(request.POST,request.FILES,instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
+        if p_form.is_valid():
+            # u_form.save()
             # pass_form.save()
             p_form.save()
     else:
-        u_form = UpdateProfileUser(instance=request.user)
+        # u_form = UpdateProfileUser(instance=request.user)
         pass_form = UpdateProfilePassword()
         p_form = UpdateProfilePicture(instance=request.user.profile)
 
     
     context = {
         'title': 'Profile',
-        'u_form':u_form,
+        # 'u_form':u_form,
         'p_form':p_form
     }
     
