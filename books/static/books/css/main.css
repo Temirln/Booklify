@@ -709,22 +709,6 @@ header .img-container{
     color: black;
 }
 
-form .form-login-google {
-    background: #EDEDED;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-family: sans-serif;
-    padding: 12px 50px;
-    border: 1px solid #000;
-    width: 210px;
-    margin-top: 10px;
-    margin-left: 70px;
-    cursor: pointer;
-    transition: .1s;
-  }
-  form .form-login-google:hover{
-    background: #B7B5B0;
-  }
 
   .product-item-line .product-item-flex .button-marked{
     border: none;
