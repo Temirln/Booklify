@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import django
 from django.contrib import admin
 from django.urls import include, path
 from booklify import settings
@@ -27,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('books.urls')),
     path('accounts/', include('allauth.urls')),
+    path('pass/',include('django.contrib.auth.urls'))
 ]
 
 if settings.DEBUG:

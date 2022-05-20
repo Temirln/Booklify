@@ -16,6 +16,7 @@ class Books(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Time Created")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Time Updated") 
     is_published = models.BooleanField(default=True, verbose_name="Published?")
+    popularity = models.BooleanField(default=False, verbose_name="Popular")
     markbook = models.ManyToManyField(User,related_name="Markbook",default=None)
     genr = models.ForeignKey('Genre',on_delete=models.PROTECT, null=True, verbose_name="Genre ID", related_name="get_genres_books")
     author = models.ForeignKey('Authors',on_delete=models.PROTECT, null=True, verbose_name="Author ID", related_name="get_authors_books")
@@ -78,12 +79,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    def save(self):
-        super().save()
+    # def save(self):
+    #     super().save()
 
-        img = Image.open(self.profile_image.path)
+    #     img = Image.open(self.profile_image.path)
 
-        if img.height > 300 or img.width > 300:
-            output_size = (300,300)
-            img.thumbnail(output_size)
-            img.save(self.profile_image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300,300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.profile_image.path)

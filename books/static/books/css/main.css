@@ -755,10 +755,4 @@ header .img-container{
     opacity: 0;
     -moz-opacity: 0;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
-}
-
-/* input[type="file"] { 
-    display: none;
-} */
-
- 
+} 

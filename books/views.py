@@ -31,17 +31,10 @@ class BookViewSet(viewsets.ModelViewSet):
     # queryset = Books.objects.all()
     serializer_class = BookSerializer 
 
-    fav = bool
-
-    def get(self, request, *args, **kwargs):
-        us = request.user
-        if Books.markbook.filter(id= request.user.id).exists():
-            fav = True
-
     def get_queryset(self):
         pk = self.kwargs.get("pk")
         if not pk:
-            return Books.objects.all()[:2]
+            return Books.objects.all()
         
         return Books.objects.filter(pk= pk)
 
