@@ -34,7 +34,12 @@
         </form>
         <a href="{% provider_login_url 'google' %}"><button class="form-login-google">with Google</button></a>
     </div>
+    <div>
         <p style="margin-left:439px ;margin-top: 420px">You don't have an account? <a href="{% url 'register' %}">Сreate a new account</a></p>
+        <p style="margin-left:439px ;margin-top: 10px">Forget Password? <a href="{% url 'reset_password' %}">Reset Password</a></p>
+    
+    </div>
+        
     </div>
 </div>
 

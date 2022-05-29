@@ -1,3 +1,4 @@
+from cgi import print_exception
 from email.policy import default
 from statistics import mode
 from tabnanny import verbose
@@ -20,7 +21,7 @@ class Books(models.Model):
     markbook = models.ManyToManyField(User,related_name="Markbook",default=None)
     genr = models.ForeignKey('Genre',on_delete=models.PROTECT, null=True, verbose_name="Genre ID", related_name="get_genres_books")
     author = models.ForeignKey('Authors',on_delete=models.PROTECT, null=True, verbose_name="Author ID", related_name="get_authors_books")
-
+    price = models.IntegerField()
 
     def __str__(self):
         return self.title 

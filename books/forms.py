@@ -4,7 +4,7 @@ from logging import PlaceHolder
 from django import forms
 from books.models import *
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm , PasswordChangeForm
 
 class AddBookForm(forms.ModelForm):
     # title = forms.CharField(max_length=255, label = "Book Title")
@@ -70,3 +70,13 @@ class UpdateProfilePicture(forms.ModelForm):
         widgets = {
             'profile_image':forms.FileInput(attrs={'onchange':"this.form.submit()","class":"fileinput"})
         }
+
+
+class PasswordChangingForm(PasswordChangeForm):
+    old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Old Password"}))
+    new_password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"New Password"}))
+    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'input-text','placeholder':"Confirm New Password"}))
+
+    class Meta:
+        model = Profile
+        fields = ('old_password','new_password1','new_password2')

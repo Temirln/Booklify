@@ -1,8 +1,8 @@
 from django.urls import include, path
 from rest_framework import routers
+from django.contrib.auth import views as auth_views
 
 from .views import *
-
 
 router = routers.DefaultRouter() # SimpleRouter
 router.register(r'book',BookViewSet, basename="book")
@@ -18,7 +18,13 @@ urlpatterns =[
     path('login/',LoginUser.as_view(),name='login'),
     path('logout/',logout_user,name='logout'),
     path('register/',RegisterUser.as_view(),name ='register'),
+    path('password_change/',PasswordChangeView.as_view(template_name = "books/password_change_form.html"),name ='password_change'),
+    path('password_success/',password_success,name ='password_success'),
 
+    path('reset_password/',auth_views.PasswordResetView.as_view(),name ='reset_password'),
+    path('reset_password_sent/',auth_views.PasswordResetDoneView.as_view(),name = "password_reset_done"),
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name ='password_reset_confirm'),
+    path('reset_password_complete/',auth_views.PasswordResetCompleteView.as_view(),name ='password_reset_complete'),
 
     path('main/',main,name = 'main'),
     path('authors/',authors ,name = 'authors'),

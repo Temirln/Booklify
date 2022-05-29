@@ -2,6 +2,7 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpRespons
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView
+from books.forms import PasswordChangingForm
 from books.forms import UpdateProfilePassword
 from books.forms import UpdateProfilePicture, UpdateProfileUser
 from books.forms import LoginUserForm
@@ -12,9 +13,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import generics , viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm , AuthenticationForm , PasswordChangeForm
 
-from django.contrib.auth.views import LoginView 
+from django.contrib.auth.views import LoginView , PasswordChangeView
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
@@ -313,3 +314,16 @@ class AddBook(LoginRequiredMixin ,DataMixin ,CreateView):
         # context['title'] = "Add Book"
         c_def = self.get_user_context(title = "Add Book")
         return dict(list(context.items())+list(c_def.items()))
+
+class PasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    # success_url = reverse_lazy('login')
+    success_url = reverse_lazy('password_success')
+
+
+def password_success(request):
+    context = {
+
+    }
+    return render(request, 'books/change_password_done.html',context)
+
