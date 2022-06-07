@@ -201,67 +201,67 @@ CACHES = {
 # Database for local connection 
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'Booklify',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Register125',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Booklify',
+        'USER': 'postgres',
+        'PASSWORD': 'Register125',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # DATABASES for heroku database connection
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('HEROKU_DATABASE_DB'),
-        'USER': config('HEROKU_DATABASE_USER'),
-        'PASSWORD': config('HEROKU_DATABASE_PASSWORD'),
-        'HOST': config('HEROKU_DATABASE_HOST'),
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': config('HEROKU_DATABASE_DB'),
+#         'USER': config('HEROKU_DATABASE_USER'),
+#         'PASSWORD': config('HEROKU_DATABASE_PASSWORD'),
+#         'HOST': config('HEROKU_DATABASE_HOST'),
+#         'PORT': '5432',
+#     }
+# }
 
 #######################################################################################
 
-# S3 BUCKETS CONFIG     Only for heroku
+# # S3 BUCKETS CONFIG     Only for heroku
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 
-AWS_S3_FILE_OVERWHILE = False 
-AWS_DEFAULT_ACL = None
+# AWS_S3_FILE_OVERWHILE = False 
+# AWS_DEFAULT_ACL = None
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
 
 #######################################################################################
 
 
 ######## Static files for heroku #########
 
-import django_heroku
+# import django_heroku
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-django_heroku.settings(locals())
+# # Extra places for collectstatic to find static files.
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+# django_heroku.settings(locals())
 
 
 ####### Static files for Development #################
 
-# STATIC_URL = 'static/'
+STATIC_URL = 'static/'
     
-# # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #Нужно только при collectstatic 
-# STATICFILES_DIRS = [ # это папка откуда будет браться статик файлы
-#     BASE_DIR / "staticfiles",
-# ]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') #Нужно только при collectstatic 
+STATICFILES_DIRS = [ # это папка откуда будет браться статик файлы
+    BASE_DIR / "staticfiles",
+]
