@@ -1,9 +1,5 @@
-from cgi import print_exception
 from email.policy import default
-from statistics import mode
-from tabnanny import verbose
 from PIL import Image
-import django
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -17,11 +13,9 @@ class Books(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Time Created")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Time Updated") 
     is_published = models.BooleanField(default=True, verbose_name="Published?")
-    popularity = models.BooleanField(default=False, verbose_name="Popular")
     markbook = models.ManyToManyField(User,related_name="Markbook",default=None)
     genr = models.ForeignKey('Genre',on_delete=models.PROTECT, null=True, verbose_name="Genre ID", related_name="get_genres_books")
     author = models.ForeignKey('Authors',on_delete=models.PROTECT, null=True, verbose_name="Author ID", related_name="get_authors_books")
-    price = models.IntegerField()
 
     def __str__(self):
         return self.title 

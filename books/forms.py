@@ -5,6 +5,9 @@ from django import forms
 from books.models import *
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm , PasswordChangeForm
+from captcha.fields import CaptchaField
+
+
 
 class AddBookForm(forms.ModelForm):
     # title = forms.CharField(max_length=255, label = "Book Title")
@@ -80,3 +83,11 @@ class PasswordChangingForm(PasswordChangeForm):
     class Meta:
         model = Profile
         fields = ('old_password','new_password1','new_password2')
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label="Name")
+    email = forms.EmailField(label = "Email")
+    subject = forms.CharField(label = "Subject")
+    content = forms.CharField(widget=forms.Textarea(attrs={'cols':60,'rows':10}))
+    captcha = CaptchaField()

@@ -1,14 +1,15 @@
-from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from smtplib import SMTPException
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView,DetailView,CreateView
+from django.views.generic import ListView,DetailView,CreateView,FormView
 from books.forms import PasswordChangingForm
 from books.forms import UpdateProfilePassword
 from books.forms import UpdateProfilePicture, UpdateProfileUser
 from books.forms import LoginUserForm
 from books.forms import RegisterUserForm
 from books.serializers import *
-from books.forms import AddBookForm
+from books.forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import generics , viewsets
 from rest_framework.decorators import action
@@ -19,6 +20,7 @@ from django.contrib.auth.views import LoginView , PasswordChangeView
 from django.contrib.auth import logout
 
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail , BadHeaderError
 
 
 # Create your views here.
@@ -315,6 +317,8 @@ class AddBook(LoginRequiredMixin ,DataMixin ,CreateView):
         c_def = self.get_user_context(title = "Add Book")
         return dict(list(context.items())+list(c_def.items()))
 
+
+
 class PasswordChangeView(PasswordChangeView):
     form_class = PasswordChangingForm
     # success_url = reverse_lazy('login')
@@ -327,3 +331,38 @@ def password_success(request):
     }
     return render(request, 'books/change_password_done.html',context)
 
+
+
+class ContactFormView(DataMixin, FormView):
+    form_class = ContactForm
+    template_name = "books/contact.html"
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, * , object_list = None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title = "Contact Us")
+        return dict(list(context.items())+list(c_def.items()))
+
+    def form_valid(self, form):
+        # print(form.cleaned_data)
+        subject = form.cleaned_data['subject']
+        content = form.cleaned_data['content']
+        email = form.cleaned_data['email']
+        to_mail = 'TestSender66@yandex.ru'
+        try:
+            send_mail(subject,content,to_mail,['TestSender66@yandex.ru',email],fail_silently = False)
+        except BadHeaderError:
+            return HttpResponse('Invalid Header Found')
+        except SMTPException as e:          # It will catch other errors related to SMTP.
+            return HttpResponse(f'There was an error sending an email. {e}')
+        except:                             # It will catch All other possible errors.
+            return HttpResponse('Mail Sending Failed!')
+
+        return redirect("contact_success")
+
+
+def contact_success(request):
+    context = {
+        'title':"Contact Success"
+    }
+    return render(request,'books/contact_success.html',)

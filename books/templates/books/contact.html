@@ -1,0 +1,21 @@
+{% extends 'books/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<form method="post">
+    <h1>Contact Us</h1>
+    {% csrf_token %}
+    <div style="padding: 5px; border-color:red">
+        {{ form.non_fields_errors }}
+    </div>
+
+    {% for f in form %}
+        <p><label for="{{ f.id_for_label }}">{{f.label}}</label>{{f}}</p>
+        <div>{{f.errors}}</div>
+    
+    {% endfor %}
+    <button type="submit">Send</button>
+</form>
+
+{% endblock %}

@@ -17,7 +17,7 @@
         <a href="{% url 'main' %}">Home</a>
         <a href="{% url 'profile' %}">My account</a>
         <a href="{% url 'bookmarks' %}">Bookmarks</a>
-        <a href="">Help</a>    
+        <a href="{% url 'contact' %}">Contact Us</a>    
         <a href="{% url 'logout' %}">Log Out</a>
         
     </nav>
@@ -49,8 +49,11 @@
                 <div class="login-container">
                     <a href="{% url 'profile' %}">{{user.username}}</a>
                 </div>
-                <div class="img-container">
+                <!-- <div class="img-container">
                     <img src="{% static 'books/images/123.png' %}" class="object-fit-cover">
+                </div> -->
+                <div class="img-container">
+                    <img src="{{user.profile.profile_image.url}}" width=30  class="object-fit-cover">
                 </div>
                 {% else %}
                     <div class="login-container">
