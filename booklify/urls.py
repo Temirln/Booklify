@@ -20,7 +20,7 @@ from django.urls import include, path
 from booklify import settings
 from django.conf.urls.static import static
 
-from books.views import pageNotFound
+from books.views import pageNotFound,main_app
 
 
 
@@ -32,11 +32,11 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    import debug_toolbar
+    # import debug_toolbar
 
-    urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+    # urlpatterns = [
+    #     path('__debug__/', include(debug_toolbar.urls)),
+    # ] + urlpatterns
 
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) 
      

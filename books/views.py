@@ -118,7 +118,7 @@ def profile(request):
             # u_form.save()
             # pass_form.save()
             p_form.save()
-    else:
+    else:   
         # u_form = UpdateProfileUser(instance=request.user)
         pass_form = UpdateProfilePassword()
         p_form = UpdateProfilePicture(instance=request.user.profile)

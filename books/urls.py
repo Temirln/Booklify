@@ -7,7 +7,7 @@ from .views import *
 
 router = routers.DefaultRouter() # SimpleRouter
 router.register(r'book',BookViewSet, basename="book")
-print(router.urls)
+# print(router.urls)
 
 
 urlpatterns =[
